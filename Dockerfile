@@ -9,7 +9,8 @@ ENV FTP_GID 1000
 RUN getent group ftpgroup || groupadd -g $FTP_GID ftpgroup
 
 RUN mkdir -p $FTP_HOME && \
-    useradd -u $FTP_UID -s /bin/false -d $FTP_HOME -c "FTP user" -g ftpgroup $FTP_USER && \
+    groupadd -g $FTP_GID ftpgroup && \
+    useradd -u $(shuf -i 1000-2000 -n 1) -s /bin/false -d $FTP_HOME -c "FTP user" -g ftpgroup $FTP_USER && \
     echo $FTP_USER:$FTP_PASS | chpasswd && \
     chown $FTP_USER:$FTPGROUP $FTP_HOME && \
     echo "yes" > /etc/pure-ftpd/conf/UnixAuthentication && \
