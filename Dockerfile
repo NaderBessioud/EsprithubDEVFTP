@@ -6,8 +6,9 @@ ENV FTP_HOME /home/ftp-user/ftp
 ENV FTP_UID 1000
 ENV FTP_GID 1000
 
+RUN getent group ftpgroup || groupadd -g $FTP_GID ftpgroup
+
 RUN mkdir -p $FTP_HOME && \
-    groupadd -g $FTP_GID ftpgroup && \
     useradd -u $FTP_UID -s /bin/false -d $FTP_HOME -c "FTP user" -g ftpgroup $FTP_USER && \
     echo $FTP_USER:$FTP_PASS | chpasswd && \
     chown $FTP_USER:$FTPGROUP $FTP_HOME && \
@@ -28,5 +29,5 @@ RUN mkdir -p $FTP_HOME && \
     echo "no" > /etc/pure-ftpd/conf/NoMKD && \
     echo "no" > /etc/pure-ftpd/conf/AllowUserFXP && \
     echo "no" > /etc/pure-ftpd/conf/AllowAnonymousFXP
-
+    
 EXPOSE 21
