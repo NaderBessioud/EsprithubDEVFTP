@@ -3,8 +3,8 @@ FROM stilliard/pure-ftpd:latest
 ENV FTP_USER ftp-user
 ENV FTP_PASS ftpuser
 ENV FTP_HOME /home/ftp-user/ftp
-ENV FTP_UID 1000
-ENV FTP_GID 1000
+ENV FTP_UID 1001
+ENV FTP_GID 1001
 
 RUN getent group ftpgroup || groupadd -g $FTP_GID ftpgroup
 
